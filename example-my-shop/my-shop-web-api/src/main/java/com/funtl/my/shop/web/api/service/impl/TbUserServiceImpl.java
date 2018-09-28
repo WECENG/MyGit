@@ -27,4 +27,15 @@ public class TbUserServiceImpl implements TbUserService {
 
         return null;
     }
+
+    @Override
+    public TbUser findTbUserByUsername(String username) {
+        TbUser tbUser=tbUserDao.selectTbUserByUsername(username);
+        return tbUser;
+    }
+
+    @Override
+    public void save(TbUser user) {
+        tbUserDao.save(user);
+    }
 }

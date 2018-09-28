@@ -19,4 +19,26 @@ public interface TbUserService {
      * @return
      */
     TbUser login(TbUser tbUser);
+
+    /**
+     *
+     * 功能描述: 通过用户名查找TbUser
+     *
+     * @param:  username
+     * @return: TbUser
+     * @auther: werson
+     * @date:
+     */
+    TbUser findTbUserByUsername(String username);
+
+    /**
+     *
+     * 功能描述:保存TbUser
+     *
+     * @param: user
+     * @return:
+     * @auther: werson
+     * @date:
+     */
+    void save(TbUser user);
 }

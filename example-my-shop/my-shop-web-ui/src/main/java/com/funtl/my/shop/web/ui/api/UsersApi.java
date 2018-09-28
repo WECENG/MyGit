@@ -34,4 +34,34 @@ public class UsersApi {
         TbUser user = MapperUtils.json2pojoByTree(json, "data", TbUser.class);
         return user;
     }
+
+    /**
+     * 注册
+     * @param tbUser
+     * @return
+     */
+    public static TbUser register(TbUser tbUser) throws Exception {
+        List<BasicNameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("username", tbUser.getUsername()));
+        params.add(new BasicNameValuePair("password", tbUser.getPassword()));
+        params.add(new BasicNameValuePair("phone", tbUser.getPhone()));
+
+        String json = HttpClientUtils.doPost(API.API_USERS_REGISTER, params.toArray(new BasicNameValuePair[params.size()]));
+        TbUser user = MapperUtils.json2pojoByTree(json, "data", TbUser.class);
+        return user;
+    }
+
+    /**
+     * 根据username查找TbUser
+     * @param tbUser
+     * @return
+     */
+    public static TbUser findTbUserByUsername(TbUser tbUser) throws Exception {
+        List<BasicNameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("username", tbUser.getUsername()));
+
+        String json = HttpClientUtils.doPost(API.API_USERS_FIND_USER, params.toArray(new BasicNameValuePair[params.size()]));
+        TbUser user = MapperUtils.json2pojoByTree(json, "data", TbUser.class);
+        return user;
+    }
 }

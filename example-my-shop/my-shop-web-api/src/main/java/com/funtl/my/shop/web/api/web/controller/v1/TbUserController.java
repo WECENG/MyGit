@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/7/6 9:16
  */
 @RestController
-@RequestMapping(value = "${api.path.v1}/users")
+@RequestMapping(value = "api/v1/users")
 public class TbUserController {
 
     @Autowired
@@ -41,6 +41,30 @@ public class TbUserController {
             TbUserDTO dto = new TbUserDTO();
             BeanUtils.copyProperties(user, dto);
             return BaseResult.success("成功", dto);
+        }
+    }
+
+    @RequestMapping(value = "TbUserIsExist", method = RequestMethod.POST)
+    public BaseResult findTbUser(String username){
+        TbUser user=tbUserService.findTbUserByUsername(username);
+        if (user!=null){
+            TbUserDTO dto = new TbUserDTO();
+            BeanUtils.copyProperties(user, dto);
+            return BaseResult.success("true",dto);
+        }else {
+            return BaseResult.fail("false");
+        }
+    }
+
+    @RequestMapping(value = "registered",method = RequestMethod.POST)
+    public BaseResult goRegister(TbUser tbUser){
+        if (tbUser!=null){
+            tbUserService.save(tbUser);
+            TbUserDTO dto = new TbUserDTO();
+            BeanUtils.copyProperties(tbUser, dto);
+            return BaseResult.success("成功",dto);
+        }else {
+            return BaseResult.fail("失败");
         }
     }
 }

@@ -6,6 +6,6 @@
 
     <context:annotation-config />
     <context:component-scan base-package="com.funtl.my.shop.web.ui">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
     </context:component-scan>
 </beans>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>MyShop | 个人注册</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="/static/css/index.css"/>
     <link rel="stylesheet" href="/static/css/ziy.css"/>
 </head>
@@ -27,12 +28,16 @@
                 <p>我已经注册，现在就<a class="ftx-05 ml10" href="/login">登录</a></p>
             </ul>
         </div>
+        <form action="/doRegister" method="post">
         <div class="zhuc_biaod">
             <div class="reg-items">
+                <div id="msg">
+
+                </div>
               	<span class="reg-label">
                 	<label>用户名：</label>
               	</span>
-                <input class="i-text" type="text">
+                <input class="i-text" id="username" type="text" name="username">
                 <!--备注————display使用 inline-block-->
                 <div class="msg-box">
                     <div class="msg-box" style="display: none;">
@@ -50,7 +55,7 @@
               	<span class="reg-label">
                 	<label>设置密码：</label>
               	</span>
-                <input class="i-text" type="text">
+                <input class="i-text" id="password" type="text" name="password">
                 <!--备注————display使用 inline-block-->
                 <div class="msg-box">
                     <div class="msg-box" style="display: none;">
@@ -79,7 +84,7 @@
               	<span class="reg-label">
                 	<label>手机号码：</label>
               	</span>
-                <input class="i-text" type="text">
+                <input class="i-text" id="phone" type="text" name="phone">
                 <!--备注————display使用 inline-block-->
                 <div class="msg-box">
                     <div class="msg-weak err-tips" style="display:none;">
@@ -119,9 +124,10 @@
               	<span class="reg-label">
                     <label> </label>
                 </span>
-                <input class="reg-btn" value="立即注册" type="button">
+                <input class="reg-btn"  id="register" value="立即注册" type="submit">
             </div>
         </div>
+        </form>
         <div class="xiaogg">
             <img src="/static/images/cdsgfd.jpg">
         </div>
@@ -135,6 +141,41 @@
         <p class="gonga_bei">京公网安备：123456789号</p>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
 
+        $("#username").on("mouseleave",function () {
+            var username=$("#username").val();
+            $.ajax({
+                url:"findTbUser",
+                type:"post",
+                data:"username="+username,
+                success:function (data) {
+                    console.log("回调成功"+data);
+                    var getData=data.valueOf();
+                    var isTrue="true";
+                    if (getData==isTrue){
+                        $("#msg").text("用户名可用");
+                        $("#register").attr("disabled",false);
+                    } else {
+                        $("#msg").text("用户名不可用");
+                        $("#register").attr("disabled",true);
+                    }
+                }
+            });
+        });
+
+        // $("#register").on("click",function () {
+        //     var username=$("#username").val();
+        //     var password=$("#password").val();
+        //     var phone=$("#phone").val();
+        //     $.ajax({
+        //         url:"doRegister",
+        //         type:"post",
+        //         data:"password="+password+"&username="+username+"&phone="+phone
+        //     });
+        // });
+    });
+</script>
 </body>
 </html>
